@@ -8,6 +8,15 @@ const maxBounds = [
     [ 53.85, 20.5],
     [ 56.5, 26.9],
 ];
+const inBoundsStyle = ()=> {
+    return {
+      fillColor: "darkgreen",
+      weight: 1,
+      opacity: 1,
+      color: "green",
+      fillOpacity: 0.4
+    };
+  };
 function LTMap() {
     return (
         <div className="absolute top-1/8 left-1/8 w-4/6 h-4/5 border-2 bg-slate-100 ">
@@ -16,7 +25,7 @@ function LTMap() {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-                <GeoJSON data={LTBoundary} style={{ fillColor: 'green', color: 'green', weight: 2 }} />
+                <GeoJSON data={LTBoundary} style={inBoundsStyle} />
             </MapContainer>
         </div>
     );
