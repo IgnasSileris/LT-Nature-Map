@@ -1,7 +1,7 @@
 import React from 'react';
 import {MapContainer, TileLayer, GeoJSON} from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
-import LTBoundary from "../Extras/LT-Borders.json";
+import LTBoundary from "../Extras/LT-Borders_simplified.json";
 
 const LTCenter = [55.1694, 23.8813];
 const maxBounds = [
