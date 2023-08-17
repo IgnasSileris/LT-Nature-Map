@@ -13,7 +13,7 @@ function DisplaySelection() {
                 <FontAwesomeIcon icon={faBars} className="w-4 h-4" />
                 <span> Feed</span>
             </button>
-            <button title="Switch the rankings" className="border-solid border bg-rose-400 hover:bg-rose-500 p-3 rounded-md">
+            <button title="Switch to rankings and leaderboards" className="border-solid border bg-rose-400 hover:bg-rose-500 p-3 rounded-md">
                 <FontAwesomeIcon icon={faRankingStar} className="w-4 h-4" />
                 <span> Rankings</span>
             </button>

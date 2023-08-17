@@ -3,6 +3,7 @@ import DisplaySelection from './DisplaySelection';
 import TimeframeSelection from './TimeframeSelection';
 import LTMap from './LTMap';
 import AddPost from './AddPost';
+import LoginSignupBar from './LoginSignupBar';
 
 function ContentsBox() {
     return (
@@ -12,6 +13,7 @@ function ContentsBox() {
                 <TimeframeSelection/>
                 <LTMap/>
                 <AddPost/>
+                <LoginSignupBar/>
             </div>
         </div>
     );
