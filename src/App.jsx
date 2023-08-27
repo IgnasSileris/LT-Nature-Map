@@ -2,6 +2,7 @@ import { useState } from 'react';
 import BackgroundImage from './BackgroundImage';
 import ContentsBox from './ContentsBox';
 import './input.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
   return (

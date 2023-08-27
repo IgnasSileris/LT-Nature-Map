@@ -4,7 +4,7 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons';
 
 function AddPost() {
     return (
-        <div className="absolute" style = {{left: '82%', top: '45%'}}>
+        <div className="flex-initial">
             <button title="Add post" className="border-solid border bg-rose-400 hover:bg-rose-500 p-3 rounded-lg h-24 w-24">
                 <FontAwesomeIcon icon={faCamera} className="w-16 h-16" />
             </button>

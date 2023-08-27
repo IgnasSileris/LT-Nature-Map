@@ -2,7 +2,7 @@ import React from 'react';
 
 function TimeframeSelection() {
     return (
-        <div className="absolute" style= {{left: '55%', top: '9%'}}>
+        <div className="flex-initial">
             <button title="Today" className="border-x border-black px-1 hover:bg-gray-300">
                 1D
             </button>

@@ -4,7 +4,7 @@ import { faMap, faBars, faRankingStar, faMagnifyingGlass } from '@fortawesome/fr
 
 function DisplaySelection() {
     return (
-        <div className="absolute">
+        <div className="flex-initial">
             <button title="Switch to map view" className="border-solid border bg-rose-400 hover:bg-rose-500 p-3 rounded-md">
                 <FontAwesomeIcon icon={faMap} className="w-4 h-4" />
                 <span> Map</span>

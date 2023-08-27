@@ -42,7 +42,7 @@ const outBoundsStyle = ()=> {
   };
 function LTMap() {
     return (
-        <div className="absolute w-2/3 h-4/5 border-2 bg-slate-100" style ={{top: '13%'}}>
+        <div className="w-full h-full">
             <MapContainer id="map" center={LTCenter} zoomSnap = {0.5} zoom={7.5} minZoom={7.5} maxBounds={maxBounds} style={{ height: '100%', width: '100%' }}>
                 <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
