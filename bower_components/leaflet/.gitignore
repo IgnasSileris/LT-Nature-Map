@@ -19,4 +19,4 @@ Gemfile.lock
 yarn.lock
 *.log
 .eslintcache
-docs/examples
+docs/examples/
