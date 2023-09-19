@@ -4,30 +4,29 @@ import { faMap, faBars, faRankingStar, faMagnifyingGlass } from '@fortawesome/fr
 import { useSelector, useDispatch } from 'react-redux';
 import { setDisplayMode } from '../reducers/displayModeReducer';
 
-
-function DisplaySelection() {
+function SelectionButton(props) {
     const displayMode = useSelector((state) => state.displayMode);
     const dispatch = useDispatch();
 
+    const bgColor = displayMode === props.name ? 'relative border-solid border bg-rose-500 p-3 rounded-md' : 'relative border-solid border bg-rose-400 hover:bg-rose-500 p-3 rounded-md';
+
+    return (
+        <button title={props.title} className={bgColor} onClick={() => dispatch(setDisplayMode(props.name))}>
+            <FontAwesomeIcon icon={props.icon} className="w-4 h-4" />
+            <span> {props.name}</span>
+            {displayMode === props.name && (<div className="absolute left-0 bottom-0 bg-black opacity-60 w-full h-1 rounded-xl"></div>)}
+        </button>
+    );
+}
+function DisplaySelection() {
     return (
         <div className="flex-initial">
-            <button title="Switch to map view" className={"border-solid border bg-rose-400 hover:bg-rose-500 p-3 rounded-md"} onClick={() => dispatch(setDisplayMode('Map'))}>
-                <FontAwesomeIcon icon={faMap} className="w-4 h-4" />
-                <span> Map</span>
-            </button>
-            <button title="Switch to feed view" className="border-solid border bg-rose-400 hover:bg-rose-500 p-3 rounded-md" onClick={() => dispatch(setDisplayMode('Feed'))}>
-                <FontAwesomeIcon icon={faBars} className="w-4 h-4" />
-                <span> Feed</span>
-            </button>
-            <button title="Switch to rankings and leaderboards" className="border-solid border bg-rose-400 hover:bg-rose-500 p-3 rounded-md" onClick={() => dispatch(setDisplayMode('Rankings'))}>
-                <FontAwesomeIcon icon={faRankingStar} className="w-4 h-4" />
-                <span> Rankings</span>
-            </button>
-            <button title="Search for posts or authors" className="border-solid border bg-rose-400 hover:bg-rose-500 p-3 rounded-md" onClick={() => dispatch(setDisplayMode('Search'))}>
-                <FontAwesomeIcon icon={faMagnifyingGlass} className="w-4 h-4" />
-                <span> Search</span>
-            </button>
+            <SelectionButton name = "Map" title = "Switch to map view" icon = {faMap}/>
+            <SelectionButton name = "Feed" title = "Switch to feed view" icon = {faBars}/>
+            <SelectionButton name = "Rankings" title = "Switch to rankings and leaderboards" icon = {faRankingStar}/>
+            <SelectionButton name = "Search" title = "Search for posts or authors" icon = {faMagnifyingGlass}/>
         </div>
     );
 }
+
 export default DisplaySelection;
