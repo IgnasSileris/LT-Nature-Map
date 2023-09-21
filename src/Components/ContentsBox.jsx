@@ -4,6 +4,7 @@ import TimeframeSelection from './TimeframeSelection';
 import LTMap from './LTMap';
 import AddPost from './AddPost';
 import LoginSignupBar from './LoginSignupBar';
+import ViewBox from './ViewBox';
 import { useSelector } from 'react-redux';
 
 function ContentsBox() {
@@ -18,9 +19,7 @@ function ContentsBox() {
                         <DisplaySelection/>
                         {displayMode != 'Search' && ( <TimeframeSelection/> )}
                     </div>
-                    <div className="border bg-white" style={{width: '100%', height: '90%'}}>
-                        {displayMode === 'Map' && ( <LTMap/> )}
-                    </div>
+                    <ViewBox/>
                 </div>
                 <div className="flex flex-col" style={{width: '30%', height: '100%'}}>
                     <div className="flex flex-wrap justify-end items-start" style={{width: '100%', height: '10%'}}>
