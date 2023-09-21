@@ -3,22 +3,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMap, faBars, faRankingStar, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { setDisplayMode } from '../reducers/displayModeReducer';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function SelectionButton(props) {
     const displayMode = useSelector((state) => state.displayMode);
     const dispatch = useDispatch();
 
     const routeLink = "/" + props.name;
-    console.log(routeLink)
-    const bgColor = displayMode === props.name ? 'relative border-solid border bg-rose-500 p-3 rounded-md' : 'relative border-solid border bg-rose-400 hover:bg-rose-500 p-3 rounded-md';
-    
+    const location = useLocation();
+    const bgColor = location.pathname === routeLink ? 'relative border-solid border bg-rose-500 p-3 rounded-md' : 'relative border-solid border bg-rose-400 hover:bg-rose-500 p-3 rounded-md';
+   
     return (
         <Link to={routeLink} style={{ textDecoration: 'inherit', color: 'inherit' }}>
             <button title={props.title} className={bgColor} onClick={() => dispatch(setDisplayMode(props.name))}>
                 <FontAwesomeIcon icon={props.icon} className="w-4 h-4" />
                 <span> {props.name}</span>
-                {displayMode === props.name && (<div className="absolute left-0 bottom-0 bg-black opacity-60 w-full h-1 rounded-xl"></div>)}
+                {location.pathname === routeLink && (<div className="absolute left-0 bottom-0 bg-black opacity-60 w-full h-1 rounded-xl"></div>)}
             </button>
         </Link>
     );
