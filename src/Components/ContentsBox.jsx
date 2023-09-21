@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import DisplaySelection from './DisplaySelection'
 import TimeframeSelection from './TimeframeSelection';
-import LTMap from './LTMap';
 import AddPost from './AddPost';
 import LoginSignupBar from './LoginSignupBar';
 import ViewBox from './ViewBox';

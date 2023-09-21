@@ -7,10 +7,12 @@ import { BrowserRouter as Router} from "react-router-dom";
 
 function App() {
   return (
-    <div className="relative flex justify-center items-center h-screen">
-        <BackgroundImage/>
-        <ContentsBox/>
-    </div>
+    <Router>
+      <div className="relative flex justify-center items-center h-screen">
+          <BackgroundImage/>
+          <ContentsBox/>
+      </div>
+    </Router>
 );
 }
 
