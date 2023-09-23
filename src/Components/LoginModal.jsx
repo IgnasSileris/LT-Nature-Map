@@ -2,10 +2,20 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeLoginModal } from '../reducers/loginModalStatusReducer';
 import ModalDialog from "react-basic-modal-dialog";
+import "primereact/resources/themes/lara-light-indigo/theme.css";     
+import "primereact/resources/primereact.min.css";
+import { InputText } from 'primereact/inputtext';
+import { Password } from 'primereact/password';
 
 function LoginModal() {
     const loginModalStatus = useSelector((state) => state.loginModalStatus);
     const dispatch = useDispatch();
+    const usernameInputStyle = {
+        backgroundColor: 'inherit',
+        border: 'none',
+        borderBottom: '2px solid #000',
+        borderRadius: 0
+    };
 
     return (
         <ModalDialog isDialogVisible={loginModalStatus} closeDialog={() => dispatch(closeLoginModal())}
@@ -20,9 +30,17 @@ function LoginModal() {
                         Log into your account
                     </div>
                     <div className="border border-green-700" style={{width:'100%', height:'15%'}}> </div>
-                    <div className="border border-blue-700" style={{width:'100%', height:'15%'}}> </div>
-                    <div className="border border-blue-700 items-center" style={{width:'100%', height:'15%'}}>
-                        <input></input>
+                    <div className="border border-blue-700 flex items-center bg-none" style={{width:'100%', height:'15%'}}>
+                        <span className="p-float-label">
+                            <InputText type="text" style={usernameInputStyle}/>
+                            <label htmlFor="username">Username or email</label>
+                        </span>
+                    </div>
+                    <div className="border border-blue-700 flex items-center" style={{width:'100%', height:'15%'}}>
+                        <span className="p-float-label">
+                            <Password inputId="password" toggleMask/>
+                            <label htmlFor="password">Password</label>
+                        </span>
                     </div>
                     <div className="border border-blue-700 flex items-center justify-center" style={{width:'100%', height:'15%'}}>
                         <button className="border-solid border bg-rose-400 hover:bg-rose-500 px-4 py-2 rounded-md">Log in</button>
