@@ -11,7 +11,7 @@ function SelectionButton(props) {
 
     const routeLink = "/" + props.name;
     const location = useLocation();
-    const bgColor = location.pathname === routeLink ? 'relative border-solid border bg-rose-500 p-3 rounded-md' : 'relative border-solid border bg-rose-400 hover:bg-rose-500 p-3 rounded-md';
+    const bgColor = location.pathname === routeLink ? 'relative border-solid border bg-rose-500 p-4 rounded-md' : 'relative border-solid border bg-rose-400 hover:bg-rose-500 p-4 rounded-md';
    
     return (
         <Link to={routeLink} style={{ textDecoration: 'inherit', color: 'inherit' }}>

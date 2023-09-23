@@ -1,11 +1,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { openLoginModal } from '../reducers/loginModalStatusReducer';
 import { login, logout } from '../reducers/loginStatusReducer';
 
 function LoginBar() {
+    const dispatch = useDispatch();
+    
     return (
         <div className="flex-initial">
-            <button title="Log into an existing account"
+            <button title="Log into an existing account" onClick={() => dispatch(openLoginModal())}
             className="border-solid border-2 border-slate-50 font-medium bg-slate-50 text-sky-600 hover:bg-gray-200 hover:border-blue-500 rounded-md shadow-md p-2">
             Log in</button>
         </div>
