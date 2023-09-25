@@ -4,6 +4,7 @@ import ContentsBox from './Components/ContentsBox';
 import './input.css';
 import { BrowserRouter as Router } from "react-router-dom";
 import LoginModal from './Components/LoginModal';
+import SignupModal from './Components/SignupModal';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <BackgroundImage/>
           <ContentsBox/>
           <LoginModal/>
+          <SignupModal/>
       </div>
     </Router>
 );
