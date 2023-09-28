@@ -8,7 +8,7 @@ import "primereact/resources/primereact.min.css";
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import '../ExtraCSS/custom.css';
-import { faCircleCheck, faCircleXmark, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function SignupModal() {
     const signupModalStatus = useSelector((state) => state.signupModalStatus);
@@ -28,11 +28,12 @@ function SignupModal() {
 
     //Username
     const [usernameValue, setUsernameValue] = useState('');
-    const [usernameStatus, setUsernameStatus] = useState('Invalid') //options: 'Invalid" - incorrect format, 'Valid' - valid and free, 'Taken' - already in use
+    const [usernameStatus, setUsernameStatus] = useState('Passive') //options: 'Passive' - no text, 'Invalid" - incorrect format, 'Valid' - valid and free, 'Taken' - already in use
     
     const handleUsernameChange = (e) => {
         setUsernameValue(e.target.value);
         checkUsernameValidity(e.target.value);
+        handleClassChange(usernameStatus);
     }
     function isChar(cCode) {
         if (('a'.charCodeAt(0) <= cCode && cCode <= 'z'.charCodeAt(0)) || ('A'.charCodeAt(0) <= cCode && cCode <= 'Z'.charCodeAt(0))) {
@@ -44,30 +45,43 @@ function SignupModal() {
     }
     const checkUsernameValidity = (uValue) => {
         const takenUsernames = ["Alice", "Bob", "Charlie", "David", "Eve"];
+        console.log(uValue.length);
+        if (uValue.length === 0){
+            setUsernameStatus('Passive');
+        }
         if (uValue.length >= 2 && isChar(uValue.charCodeAt(0))){
             setUsernameStatus('Valid');
             if (takenUsernames.includes(uValue)) {
                 setUsernameStatus('Taken');
             }
         }
-        else{
+        if ((0 < uValue.length && uValue.length < 2) || ((uValue.length > 2) && (isChar(uValue.charCodeAt(0))===false))){
             setUsernameStatus('Invalid');
         }
     }
-    let boxClass = '';
-    switch (usernameStatus){
-        case 'Invalid':
-            boxClass = 'test-class-invalid';
-            break;
-        case 'Valid':
-            boxClass = 'test-class-valid';
-            break;
-        case 'Taken':
-            boxClass = 'test-class-taken';
-            break;
-    }
-    //Password
+    const [usernameStyleClass, setUsernameStyleClass] = useState('custom-inputs');
+    const handleClassChange = (uStatus) => {
+        switch (uStatus){
+            case 'Passive':
+                setUsernameStyleClass('custom-inputs');
+                break;
 
+            case 'Valid':
+                setUsernameStyleClass('custom-inputs-valid');
+                break;
+
+            case 'Invalid':
+                setUsernameStyleClass('custom-inputs-invalid');
+                break;
+
+            case 'Taken':
+                setUsernameStyleClass('custom-inputs-taken');
+                break;
+        }
+    }
+
+
+    //Password
     return (
         <ModalDialog isDialogVisible={signupModalStatus} closeDialog={() => dispatch(closeSignupModal())}
         dialogClassName="bg-gray-200 w-1/4 h-3/4 rounded-lg backdrop:bg-black/40"
@@ -88,7 +102,7 @@ function SignupModal() {
                     </div>
                     <div className="border border-red-800 flex items-start" style={{width:'100%', height:'15%'}}>
                         <span className="p-float-label w-full">
-                            <InputText type="text" className={boxClass} maxLength={25} value={usernameValue} onChange={handleUsernameChange}/>
+                            <InputText type="text" className={usernameStyleClass} maxLength={25} value={usernameValue} onChange={handleUsernameChange}/>
                             <label htmlFor="username">Choose a username</label>
                         </span>
                     </div>
