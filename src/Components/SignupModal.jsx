@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeSignupModal } from '../reducers/signupModalStatusReducer';
 import { openLoginModal } from '../reducers/loginModalStatusReducer';
@@ -8,7 +8,6 @@ import "primereact/resources/primereact.min.css";
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import '../ExtraCSS/custom.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function SignupModal() {
     const signupModalStatus = useSelector((state) => state.signupModalStatus);
@@ -32,9 +31,8 @@ function SignupModal() {
     
     const handleUsernameChange = (e) => {
         setUsernameValue(e.target.value);
-        checkUsernameValidity(e.target.value);
-        handleClassChange(usernameStatus);
     }
+    
     function isChar(cCode) {
         if (('a'.charCodeAt(0) <= cCode && cCode <= 'z'.charCodeAt(0)) || ('A'.charCodeAt(0) <= cCode && cCode <= 'Z'.charCodeAt(0))) {
             return true
@@ -45,7 +43,6 @@ function SignupModal() {
     }
     const checkUsernameValidity = (uValue) => {
         const takenUsernames = ["Alice", "Bob", "Charlie", "David", "Eve"];
-        console.log(uValue.length);
         if (uValue.length === 0){
             setUsernameStatus('Passive');
         }
@@ -59,27 +56,33 @@ function SignupModal() {
             setUsernameStatus('Invalid');
         }
     }
-    const [usernameStyleClass, setUsernameStyleClass] = useState('custom-inputs');
+    useEffect(()=> {
+        checkUsernameValidity(usernameValue);
+    }, [usernameValue])
+
+    const [usernameStyleClass, setUsernameStyleClass] = useState({styleClass: 'custom-inputs', text: '', textColor: 'black'});
     const handleClassChange = (uStatus) => {
         switch (uStatus){
             case 'Passive':
-                setUsernameStyleClass('custom-inputs');
+                setUsernameStyleClass({styleClass: 'custom-inputs', text: '', textColor: 'black'});
                 break;
 
             case 'Valid':
-                setUsernameStyleClass('custom-inputs-valid');
+                setUsernameStyleClass({styleClass: 'custom-inputs-valid', text: 'Username is available', textColor: '#36a307'});
                 break;
 
             case 'Invalid':
-                setUsernameStyleClass('custom-inputs-invalid');
+                setUsernameStyleClass({styleClass: 'custom-inputs-invalid', text: 'Must be 2-25 characters long and start with a letter', textColor: '#f50505'});
                 break;
 
             case 'Taken':
-                setUsernameStyleClass('custom-inputs-taken');
+                setUsernameStyleClass({styleClass: 'custom-inputs-taken', text: 'Username is taken', textColor: '#d4ac18'});
                 break;
         }
     }
-
+    useEffect(()=> {
+        handleClassChange(usernameStatus);
+    }, [usernameStatus])
 
     //Password
     return (
@@ -100,13 +103,17 @@ function SignupModal() {
                             <label htmlFor="username">Enter your email</label>
                         </span>
                     </div>
-                    <div className="border border-red-800 flex items-start" style={{width:'100%', height:'15%'}}>
+                    <div className="border border-red-800 flex flex-col items-start" style={{width:'100%', height:'15%'}}>
                         <span className="p-float-label w-full">
-                            <InputText type="text" className={usernameStyleClass} maxLength={25} value={usernameValue} onChange={handleUsernameChange}/>
+                            <InputText type="text" className={usernameStyleClass.styleClass} maxLength={25} value={usernameValue} onChange={handleUsernameChange}/>
                             <label htmlFor="username">Choose a username</label>
                         </span>
+                        <div className="flex justify-between w-full">
+                            <span className="flex-grow"></span>
+                            <span className="text-sm" style={{color: usernameStyleClass.textColor}}> {usernameStyleClass.text}</span>
+                        </div>
                     </div>
-                    <div className="border border-red-800 flex items-start" style={{width:'100%', height:'25%'}}>
+                    <div className="border border-red-800 flex flex-col items-start" style={{width:'100%', height:'25%'}}>
                         <span className="p-float-label w-full">
                             <Password style={{width: '100%'}} inputClassName="custom-inputs" inputId="password" maxLength={25} toggleMask feedback={false}/>
                             <label htmlFor="password">Create a password</label>
