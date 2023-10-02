@@ -17,15 +17,63 @@ function SignupModal() {
         dispatch(openLoginModal());
     }
 
-    // Input value manager
-    //Email
+    //#region Input value manager
+    //#region Email
     const [emailValue, setEmailValue] = useState('');
+    const [emailStatus, setEmailStatus] = useState('Passive') //options: 'Passive' - no text, 'Invalid" - incorrect format, 'Valid' - valid and free, 'Taken' - already in use
     
     const handleEmailChange = (e) => {
         setEmailValue(e.target.value);
     }
+    const checkEmailValidity = (eValue) => {
+        eValue = eValue.toLowerCase();
+        const takenEmails = ["alice@.com", "bob@.com", "charlie@.com", "david@.com", "eve@.com"];
+        const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/; //simple Regex (does not contain all the possible email rules, email confirmation in backend)
 
-    //Username
+        if (emailRegex.test(eValue)){
+            setEmailStatus('Valid');
+        }
+        if (emailRegex.test(eValue) === false){
+            setEmailStatus('Invalid');
+        }
+        if (takenEmails.includes(eValue)){
+            setEmailStatus('Taken');
+        }
+        if (eValue.length === 0) {
+            setEmailStatus('Passive');
+        }
+    }
+        
+    useEffect(()=> {
+        checkEmailValidity(emailValue);
+    }, [emailValue])
+
+    const [emailStyleClass, setEmailStyleClass] = useState({styleClass: 'custom-inputs', text: '', textColor: 'black'});
+    const handleEClassChange = (eStatus) => {
+        switch (eStatus){
+            case 'Passive':
+                setEmailStyleClass({styleClass: 'custom-inputs', text: '', textColor: 'black'});
+                break;
+
+            case 'Valid':
+                setEmailStyleClass({styleClass: 'custom-inputs-valid', text: 'Email is available', textColor: '#36a307'});
+                break;
+
+            case 'Invalid':
+                setEmailStyleClass({styleClass: 'custom-inputs-invalid', text: 'Invalid email', textColor: '#f50505'});
+                break;
+
+            case 'Taken':
+                setEmailStyleClass({styleClass: 'custom-inputs-taken', text: 'Email is taken', textColor: '#d4ac18'});
+                break;
+        }
+    }
+
+    useEffect(()=> {
+        handleEClassChange(emailStatus);
+    }, [emailStatus])
+    //#endregion
+    //#region Username
     const [usernameValue, setUsernameValue] = useState('');
     const [usernameStatus, setUsernameStatus] = useState('Passive') //options: 'Passive' - no text, 'Invalid" - incorrect format, 'Valid' - valid and free, 'Taken' - already in use
     
@@ -56,12 +104,13 @@ function SignupModal() {
             setUsernameStatus('Invalid');
         }
     }
+
     useEffect(()=> {
         checkUsernameValidity(usernameValue);
     }, [usernameValue])
 
     const [usernameStyleClass, setUsernameStyleClass] = useState({styleClass: 'custom-inputs', text: '', textColor: 'black'});
-    const handleClassChange = (uStatus) => {
+    const handleUClassChange = (uStatus) => {
         switch (uStatus){
             case 'Passive':
                 setUsernameStyleClass({styleClass: 'custom-inputs', text: '', textColor: 'black'});
@@ -80,11 +129,14 @@ function SignupModal() {
                 break;
         }
     }
-    useEffect(()=> {
-        handleClassChange(usernameStatus);
-    }, [usernameStatus])
 
-    //Password
+    useEffect(()=> {
+        handleUClassChange(usernameStatus);
+    }, [usernameStatus])
+    //#endregion
+    //#region Password
+    //#endregion
+    //#endregion
     return (
         <ModalDialog isDialogVisible={signupModalStatus} closeDialog={() => dispatch(closeSignupModal())}
         dialogClassName="bg-gray-200 w-1/4 h-3/4 rounded-lg backdrop:bg-black/40"
@@ -97,11 +149,15 @@ function SignupModal() {
                     <div className="border border-red-800 flex items-center justify-center text-2xl font-bold" style={{width: '100%', height: '15%'}}>
                         Create an account
                     </div>
-                    <div className="border border-red-800 flex items-start" style={{width:'100%', height:'15%'}}>
+                    <div className="border border-red-800 flex flex-col items-start" style={{width:'100%', height:'15%'}}>
                         <span className="p-float-label w-full">
-                            <InputText type="text" className="custom-inputs" maxLength={25} value={emailValue} onChange={handleEmailChange}/>
+                            <InputText type="text" className={emailStyleClass.styleClass} maxLength={80} value={emailValue} onChange={handleEmailChange}/>
                             <label htmlFor="username">Enter your email</label>
                         </span>
+                        <div className="flex justify-between w-full">
+                            <span className="flex-grow"></span>
+                            <span className="text-sm" style={{color: emailStyleClass.textColor}}> {emailStyleClass.text}</span>
+                        </div>
                     </div>
                     <div className="border border-red-800 flex flex-col items-start" style={{width:'100%', height:'15%'}}>
                         <span className="p-float-label w-full">
