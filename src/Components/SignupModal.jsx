@@ -279,7 +279,7 @@ function SignupModal() {
                             <span className="text-sm" style={{color: usernameStyleClass.textColor}}> {usernameStyleClass.text}</span>
                         </div>
                     </div>
-                    <div className="flex flex-col items-start" style={{width:'100%', height:'25%'}}>
+                    <div className="flex flex-col items-start" style={{width:'100%', height:'40%'}}>
                         <span className="p-float-label w-full">
                             <Password style={{width: '100%'}} inputClassName={password1Style.style} inputId="password" value={password1Value}
                             maxLength={25} toggleMask feedback={false} onChange={handlePassword1Change} onFocus={() => setShowReqs(true)} onBlur={() => setShowReqs(false)}/>
@@ -290,25 +290,27 @@ function SignupModal() {
                                 <span className="flex-grow"></span>
                                 <span className="text-sm" style={{color: password1Style.color}}> {password1Style.text}</span>
                             </div>}
-                            {showReqs && <div className="flex flex-col gap-2">
+                            {showReqs && <div className="flex flex-col gap-1">
                                 <span style={{color: passwordReqStyles.length}}>• Password must be 6-25 characters long</span>
                                 <span style={{color: passwordReqStyles.upper_lower}}>• Password must contain both uppercase and lowercase characters</span>
                                 <span style={{color: passwordReqStyles.contains_number}}>• Password must contain a number</span>
-                            </div>}
+                            </div>}    
+                        </div>
+                        <div style={{width: '100%', height: '15%'}}></div>
+                        <div className="flex flex-col justify-center" style={{width:'100%'}}>
+                                <span className="p-float-label w-full">
+                                    <Password style={{width: '100%'}} inputClassName={password2Style.style} inputId="password" value={password2Value}
+                                    maxLength={25} toggleMask feedback={false} onChange={handlePassword2Change}/>
+                                    <label className="text-base" htmlFor="password">Confirm your password</label>
+                                </span>
+                                <div className="flex justify-between w-full">
+                                    <span className="flex-grow"></span>
+                                    <span className="text-sm" style={{color: password2Style.color}}> {password2Style.text}</span>
+                                </div>
                         </div>
                     </div>
-                    <div className="flex flex-col justify-center" style={{width:'100%', height:'20%'}}>
-                        <span className="p-float-label w-full">
-                            <Password style={{width: '100%'}} inputClassName={password2Style.style} inputId="password" value={password2Value}
-                            maxLength={25} toggleMask feedback={false} onChange={handlePassword2Change}/>
-                            <label htmlFor="password">Confirm your password</label>
-                        </span>
-                        <div className="flex justify-between w-full">
-                            <span className="flex-grow"></span>
-                            <span className="text-sm" style={{color: password2Style.color}}> {password2Style.text}</span>
-                        </div>
-                    </div>
-                    <div className="flex items-center justify-center" style={{width:'100%', height:'10%'}}>
+                    
+                    <div className="flex items-center justify-center" style={{width:'100%', height:'15%'}}>
                         <button className="border-solid border bg-rose-400 hover:bg-rose-500 px-4 py-2 rounded-md">Sign up</button>
                     </div>
                     <div className="flex items-center justify-center" style={{width:'100%', height:'5%'}}>
